@@ -129,11 +129,11 @@ Both bounds are enforced in code: `MAX_SESSIONS` (oldest-first eviction) and
 ## 🚀 Installation and setup
 
 ```bash
-git clone https://github.com/abdelrahmanAdwan/minhtak-assistant.git
+git clone https://github.com/abdelrahmanAdwan/minhtak-assistant-.git
 ```
 
 ```bash
-cd minhtak-assistant && pip install -r requirements.txt
+cd minhtak-assistant- && pip install -r requirements.txt
 ```
 
 Get a free Gemini key at [aistudio.google.com/apikey](https://aistudio.google.com/apikey),

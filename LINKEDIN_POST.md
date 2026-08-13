@@ -47,7 +47,7 @@ Grounding is an architecture problem, not a prompt problem. Telling a model "don
 
 **Tech:** Python · FastAPI · Google Gemini (function calling + embeddings) · pypdf · NumPy · Docker · Fly.io · vanilla JS/CSS
 
-🔗 GitHub: https://github.com/abdelrahmanAdwan/minhtak-assistant
+🔗 GitHub: https://github.com/abdelrahmanAdwan/minhtak-assistant-
 ▶ Live: https://minhtak-assistant.fly.dev
 🌍 The platform behind it: https://minhtak.com
 
@@ -97,7 +97,7 @@ Grounding is an architecture problem, not a prompt problem. Telling a model "don
 
 **التقنيات:** Python · FastAPI · Google Gemini · pypdf · NumPy · Docker · Fly.io · JS/CSS خام
 
-🔗 GitHub: https://github.com/abdelrahmanAdwan/minhtak-assistant
+🔗 GitHub: https://github.com/abdelrahmanAdwan/minhtak-assistant-
 ▶ التطبيق: https://minhtak-assistant.fly.dev
 🌍 المنصة: https://minhtak.com
 
