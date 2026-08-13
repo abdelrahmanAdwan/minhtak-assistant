@@ -1,0 +1,11 @@
+.env
+.git
+.gitignore
+__pycache__/
+**/__pycache__/
+*.pyc
+screenshots/
+docs/
+README.md
+LINKEDIN_POST.md
+.venv/

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>مساعد منحتك — محادثة، أدوات، وقراءة ملفاتك</title>
+  <meta name="description" content="مساعد ذكي للطلاب العرب: يبحث في كتالوج منحتك الحي، يقرأ سيرتك الذاتية، ويحسب ميزانيتك — بمحادثة عربية واحدة." />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="shell">
+
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">🎓</span>
+        <div class="brand-text">
+          <h1>مساعد منحتك</h1>
+          <p id="statusLine" class="status"><span class="dot" id="statusDot"></span><span id="statusText">جارٍ الاتصال…</span></p>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <button id="newChatBtn" class="ghost-btn" type="button" title="محادثة جديدة">
+          <span aria-hidden="true">✚</span> محادثة جديدة
+        </button>
+      </div>
+    </header>
+
+    <div id="errorBanner" class="banner" role="alert" hidden>
+      <span id="errorText"></span>
+      <button id="errorClose" class="banner-close" type="button" aria-label="إغلاق">✕</button>
+    </div>
+
+    <main id="messages" class="messages" aria-live="polite">
+      <section id="welcome" class="welcome">
+        <div class="welcome-mark" aria-hidden="true">🎓</div>
+        <h2>أهلًا! أنا مساعد منحتك</h2>
+        <p>
+          أبحث لك في كتالوج المنح <strong>الحي والموثّق</strong>، أقرأ سيرتك الذاتية إن رفعتها،
+          وأحسب ميزانيتك — كل ذلك في محادثة واحدة. لا أخترع أي رقم: كل معلومة عن منحة تأتي من أدوات منحتك.
+        </p>
+        <div class="suggestions" id="suggestions">
+          <button class="chip" data-prompt="أنا طالب من فلسطين وأدرس هندسة كهربائية بمعدل 3.4 من 4.0، شو المنح المناسبة إلي؟">🔎 منح تناسب ملفي</button>
+          <button class="chip" data-prompt="شو الموعد النهائي لمنحة داد هلموت شميت وكم قيمة الراتب الشهري؟">📅 موعد وقيمة منحة</button>
+          <button class="chip" data-prompt="إذا كان الراتب الشهري 1133 دولار والإيجار 620 دولار، كم يتبقى لي بالشهر وبالسنة؟">🧮 احسب ميزانيتي</button>
+          <button class="chip" data-prompt="كيف الطقس في بودابست؟ أفكر أدرس هناك.">🌤️ طقس مدينة الدراسة</button>
+        </div>
+      </section>
+    </main>
+
+    <div id="docBar" class="docbar" hidden>
+      <span class="docbar-label">ملفات هذه المحادثة:</span>
+      <span id="docList" class="doclist"></span>
+    </div>
+
+    <footer class="composer">
+      <form id="chatForm" class="composer-inner">
+        <button id="uploadBtn" class="icon-btn" type="button" title="ارفع ملف PDF (سيرة ذاتية، إعلان منحة…)">
+          <span aria-hidden="true">📎</span>
+        </button>
+        <input id="fileInput" type="file" accept="application/pdf,.pdf" hidden />
+        <textarea id="input" rows="1" placeholder="اكتب سؤالك… (Enter للإرسال، Shift+Enter لسطر جديد)" autocomplete="off"></textarea>
+        <button id="sendBtn" class="send-btn" type="submit" title="إرسال" disabled>
+          <span aria-hidden="true">➤</span>
+        </button>
+      </form>
+      <p class="disclaimer">
+        الملفات المرفوعة تُعالَج في الذاكرة لهذه الجلسة فقط ولا تُحفظ على أي قرص أو قاعدة بيانات.
+        المحادثة محفوظة في متصفّحك أنت.
+      </p>
+    </footer>
+
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>

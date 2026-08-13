@@ -1,0 +1,33 @@
+# fly.toml — منحتك Assistant
+# One machine class, one process, one origin (API + web client).
+
+app = "minhtak-assistant"
+primary_region = "fra"          # beside the منحتك catalogue API and its database
+
+[build]
+
+[env]
+  PORT = "8080"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  # Never scale to zero: a cold start would drop every in-memory session
+  # (conversation history AND uploaded documents) mid-conversation.
+  auto_stop_machines = false
+  auto_start_machines = true
+  # Exactly one machine. Sessions live in process memory, so Fly's default
+  # 2-machine HA pair would round-robin users between two servers that cannot
+  # see each other's conversations. Enforce with: fly scale count 1
+  min_machines_running = 1
+
+  [[http_service.checks]]
+    interval = "30s"
+    timeout = "5s"
+    grace_period = "10s"
+    method = "GET"
+    path = "/api/health"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"              # numpy + the in-memory vector index need headroom
