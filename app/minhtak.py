@@ -89,6 +89,55 @@ def search_scholarships(
     }
 
 
+def browse_catalogue(
+    name: str | None = None,
+    country_code: str | None = None,
+    certainty: str | None = None,
+) -> dict[str, Any]:
+    """List/look up scholarships in the catalogue WITHOUT a student profile.
+
+    This is the name-lookup path the ranked search does not cover: "is Chevening
+    in your catalogue?", "what UK scholarships do you have?". Backed by
+    GET /api/v1/catalogue (every active record: id, name, country, certainty,
+    nearest deadline). Filtering is done here over the full list so a name match
+    can never be hidden by a profile's ranking or the guaranteed-only default.
+    """
+    data = _get("/api/v1/catalogue")
+    records = data.get("records", []) if isinstance(data, dict) else []
+
+    needle = (name or "").strip().casefold()
+    want_country = (country_code or "").strip().upper()
+    want_certainty = (certainty or "").strip().casefold()
+
+    matches = []
+    for record in records:
+        record_name = (record.get("name") or "")
+        if needle and needle not in record_name.casefold():
+            continue
+        if want_country and (record.get("country_code") or "").upper() != want_country:
+            continue
+        if want_certainty and (record.get("funding_certainty") or "").casefold() != want_certainty:
+            continue
+        matches.append({
+            "scholarship_id": record.get("id"),
+            "name": record_name,
+            "country_code": record.get("country_code"),
+            "funding_certainty": record.get("funding_certainty"),
+            "nearest_deadline_utc": record.get("nearest_deadline_utc"),
+        })
+
+    return {
+        "total_in_catalogue": len(records),
+        "match_count": len(matches),
+        "matches": matches,
+        "note": (
+            "These are ALL active scholarships matching the filter, including "
+            "'competitive' (funding-not-guaranteed) awards. Absence here means "
+            "the catalogue truly does not contain it."
+        ),
+    }
+
+
 def scholarship_details(scholarship_id: int) -> dict[str, Any]:
     """Full trust surface for one scholarship: funding, deadlines, official URL."""
     data = _get(f"/api/v1/scholarships/{int(scholarship_id)}")

@@ -39,6 +39,8 @@ def _summarize(result: dict[str, Any]) -> str:
         return str(result)[:160]
     if "error" in result:
         return f"خطأ: {result['error']}"[:200]
+    if "match_count" in result:
+        return f"{result['match_count']} من {result.get('total_in_catalogue', '?')} في الكتالوج"
     if "result_count" in result:
         return f"{result['result_count']} منحة مطابقة"
     if "passages" in result:

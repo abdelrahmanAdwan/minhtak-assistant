@@ -161,6 +161,7 @@ function renderMessage(entry, persist = true) {
 
 const TOOL_LABELS = {
   search_scholarships: "🔎 بحث في الكتالوج",
+  browse_catalogue: "📚 تصفّح الكتالوج",
   get_scholarship_details: "📄 تفاصيل منحة",
   get_weather: "🌤️ الطقس",
   calculate: "🧮 حساب",

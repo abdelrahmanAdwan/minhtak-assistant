@@ -58,10 +58,17 @@ deadlines and funding amounts it quotes are the same verified records real users
 | Tool | What it does | Source of truth |
 |---|---|---|
 | `search_scholarships` | Ranked matches for a student profile | Live منحتك API |
+| `browse_catalogue` | Look up a scholarship **by name**, or list what the catalogue holds for a country — including competitive awards the ranked search hides | Live منحتك API |
 | `get_scholarship_details` | Funding breakdown, all deadlines, official link | Live منحتك API |
 | `search_uploaded_documents` | Top-k passages from the user's PDFs | This session's RAG index |
 | `get_weather` | Current conditions in a study destination | Open-Meteo |
 | `calculate` | Safe arithmetic (AST-walked, no `eval`) | Local |
+
+`browse_catalogue` exists because `search_scholarships` is a **profile-ranked** query:
+ask it about a scholarship *by name* without giving a profile and it can't find it, so the
+model was tempted to answer "we don't have that" from memory — which is both ungrounded
+and, for a competitive award like Chevening, wrong. Now a named-scholarship question always
+consults the catalogue first, so "we don't have it" is a *checked* fact, not a guess.
 
 `search_uploaded_documents` is **declared only when the session actually has a document**.
 Advertising a tool the session cannot serve invites the model to call it and then explain

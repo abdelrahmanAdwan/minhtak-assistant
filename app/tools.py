@@ -74,6 +74,41 @@ SCHOLARSHIP_TOOLS: list[dict[str, Any]] = [
         },
     },
     {
+        "name": "browse_catalogue",
+        "description": (
+            "List or look up scholarships in the منحتك catalogue WITHOUT needing a "
+            "student profile. Use this for ANY question about whether a specific "
+            "named scholarship exists (e.g. 'is Chevening in your catalogue?', "
+            "'do you have Gates Cambridge?'), or to list what the catalogue covers "
+            "for a country ('what UK scholarships do you have?'). Returns every "
+            "matching active record — including 'competitive' (funding-not-"
+            "guaranteed) awards that the ranked search hides by default. This is "
+            "the ONLY reliable way to confirm a named scholarship is absent: if it "
+            "is not in these results, the catalogue truly does not contain it."
+        ),
+        "parameters": {
+            "type": "OBJECT",
+            "properties": {
+                "name": {
+                    "type": "STRING",
+                    "description": (
+                        "Part of the scholarship name to match, case-insensitive, "
+                        "e.g. 'Chevening', 'Erasmus', 'DAAD'. Latin letters match "
+                        "best. Omit to list everything (optionally filtered by country)."
+                    ),
+                },
+                "country_code": {
+                    "type": "STRING",
+                    "description": "ISO alpha-2 host country, e.g. 'GB', 'DE', 'IT'. Optional.",
+                },
+                "certainty": {
+                    "type": "STRING",
+                    "description": "Filter by 'guaranteed' or 'competitive'. Optional.",
+                },
+            },
+        },
+    },
+    {
         "name": "get_scholarship_details",
         "description": (
             "Get the full verified details of ONE scholarship by its id: funding "
@@ -185,6 +220,14 @@ def _tool_search(args: dict[str, Any]) -> dict[str, Any]:
     return result
 
 
+def _tool_browse(args: dict[str, Any]) -> dict[str, Any]:
+    return minhtak.browse_catalogue(
+        name=args.get("name"),
+        country_code=args.get("country_code"),
+        certainty=args.get("certainty"),
+    )
+
+
 def _tool_details(args: dict[str, Any]) -> dict[str, Any]:
     data = minhtak.scholarship_details(int(args["scholarship_id"]))
     for deadline in data.get("deadlines", []):
@@ -219,6 +262,7 @@ def _tool_documents(args: dict[str, Any], corpus: Optional[DocumentCorpus]
 
 _DISPATCH: dict[str, Callable[..., dict[str, Any]]] = {
     "search_scholarships": _tool_search,
+    "browse_catalogue": _tool_browse,
     "get_scholarship_details": _tool_details,
     "get_weather": _tool_weather,
     "calculate": _tool_calculate,
