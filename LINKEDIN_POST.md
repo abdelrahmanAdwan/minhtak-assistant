@@ -28,7 +28,7 @@ Instead, **retrieval over your uploaded PDF is registered as just another tool**
 
 **Key features**
 ✅ Arabic-first RTL chat, light and dark, responsive to 390px, no framework and no build step
-✅ 5 tools via Gemini function calling in AUTO mode
+✅ 6 tools via Gemini function calling in AUTO mode
 ✅ PDF → chunk → embed → cosine retrieval, per session and fully in-memory
 ✅ Conversation history split between server (model memory) and browser (your transcript)
 ✅ A visible **trace chip under every reply** showing which tools ran and what they returned
@@ -47,7 +47,7 @@ Grounding is an architecture problem, not a prompt problem. Telling a model "don
 
 **Tech:** Python · FastAPI · Google Gemini (function calling + embeddings) · pypdf · NumPy · Docker · Fly.io · vanilla JS/CSS
 
-🔗 GitHub: https://github.com/abdelrahmanAdwan/minhtak-assistant-
+🔗 GitHub: https://github.com/abdelrahmanAdwan/minhtak-assistant
 ▶ Live: https://minhtak-assistant.fly.dev
 🌍 The platform behind it: https://minhtak.com
 
@@ -78,7 +78,7 @@ Grounding is an architecture problem, not a prompt problem. Telling a model "don
 
 **أبرز المزايا**
 ✅ محادثة عربية RTL، فاتح وداكن، متجاوبة حتى 390 بكسل، بلا إطار عمل وبلا خطوة بناء
-✅ 5 أدوات عبر function calling من Gemini بوضع AUTO
+✅ 6 أدوات عبر function calling من Gemini بوضع AUTO
 ✅ PDF ← تقطيع ← تضمين ← استرجاع بالتشابه، لكل جلسة وفي الذاكرة بالكامل
 ✅ سجل محادثات مقسوم بين الخادم (ذاكرة النموذج) والمتصفّح (نصّك أنت)
 ✅ **شارة أدوات ظاهرة تحت كل رد** تبيّن ما استُدعي وما أرجعه
@@ -97,7 +97,7 @@ Grounding is an architecture problem, not a prompt problem. Telling a model "don
 
 **التقنيات:** Python · FastAPI · Google Gemini · pypdf · NumPy · Docker · Fly.io · JS/CSS خام
 
-🔗 GitHub: https://github.com/abdelrahmanAdwan/minhtak-assistant-
+🔗 GitHub: https://github.com/abdelrahmanAdwan/minhtak-assistant
 ▶ التطبيق: https://minhtak-assistant.fly.dev
 🌍 المنصة: https://minhtak.com
 

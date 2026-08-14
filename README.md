@@ -47,13 +47,13 @@ deadlines and funding amounts it quotes are the same verified records real users
 |---|---|
 | **Chat interface** | Arabic-first RTL single-page client, streamed-feel typing indicator, suggestion chips, keyboard-first composer (Enter to send, Shift+Enter for a newline) |
 | **Conversation history** | Server keeps the model-facing turns per session (bounded + trimmed at a safe turn boundary); the browser keeps the visible transcript in `localStorage` so a refresh resumes |
-| **Tool calling** | 5 tools with Gemini function calling in `AUTO` mode — the model chooses, chains and re-plans; a visible trace chip is rendered for every call |
+| **Tool calling** | 6 tools with Gemini function calling in `AUTO` mode — the model chooses, chains and re-plans; a visible trace chip is rendered for every call |
 | **PDF upload** | Multipart upload with type/size/page caps and typed rejections (`415`, `413`, `422`) |
 | **RAG** | PDF → text → overlapping chunks → Gemini embeddings → in-memory cosine index → top-k retrieval, exposed to the agent as `search_uploaded_documents` |
 | **Error handling** | One typed error family mapped to HTTP codes and Arabic user messages; tool failures are returned *to the model* so it can recover mid-conversation |
 | **Modern UI** | Dependency-free design system, light **and** dark themes, responsive to 390 px, accessible landmarks |
 
-### The five tools
+### The six tools
 
 | Tool | What it does | Source of truth |
 |---|---|---|
@@ -136,11 +136,11 @@ Both bounds are enforced in code: `MAX_SESSIONS` (oldest-first eviction) and
 ## 🚀 Installation and setup
 
 ```bash
-git clone https://github.com/abdelrahmanAdwan/minhtak-assistant-.git
+git clone https://github.com/abdelrahmanAdwan/minhtak-assistant.git
 ```
 
 ```bash
-cd minhtak-assistant- && pip install -r requirements.txt
+cd minhtak-assistant && pip install -r requirements.txt
 ```
 
 Get a free Gemini key at [aistudio.google.com/apikey](https://aistudio.google.com/apikey),
