@@ -24,6 +24,7 @@ from .calculator import CalculatorError, calculate
 from .errors import AssistantError
 from .rag import DocumentCorpus
 from .weather import WeatherError, get_weather
+from .web_search import WebSearchError, web_search
 
 # --------------------------------------------------------------------------- #
 # Declarations -- the OpenAPI-subset schemas Gemini uses to pick + fill a tool
@@ -163,6 +164,37 @@ SCHOLARSHIP_TOOLS: list[dict[str, Any]] = [
             "required": ["expression"],
         },
     },
+    {
+        "name": "web_search",
+        "description": (
+            "Search the web via DuckDuckGo for general or up-to-date information "
+            "that is NOT about the منحتك scholarship catalogue — e.g. a "
+            "university's ranking or program page, a country's student-visa "
+            "requirements, an IELTS/TOEFL test date, cost-of-living figures, or a "
+            "general definition. Returns a short instant answer (when available) "
+            "plus the top result titles, URLs and snippets. Do NOT use this for "
+            "scholarship names, funding amounts, deadlines or application links — "
+            "those come only from search_scholarships / browse_catalogue / "
+            "get_scholarship_details."
+        ),
+        "parameters": {
+            "type": "OBJECT",
+            "properties": {
+                "query": {
+                    "type": "STRING",
+                    "description": (
+                        "The search query in natural language, e.g. 'TU Munich "
+                        "computer science masters admission requirements'."
+                    ),
+                },
+                "max_results": {
+                    "type": "INTEGER",
+                    "description": "How many results to return (1-10, default 5).",
+                },
+            },
+            "required": ["query"],
+        },
+    },
 ]
 
 DOCUMENT_TOOL: dict[str, Any] = {
@@ -243,6 +275,10 @@ def _tool_calculate(args: dict[str, Any]) -> dict[str, Any]:
     return calculate(args["expression"])
 
 
+def _tool_web_search(args: dict[str, Any]) -> dict[str, Any]:
+    return web_search(args["query"], max_results=int(args.get("max_results", 5)))
+
+
 def _tool_documents(args: dict[str, Any], corpus: Optional[DocumentCorpus]
                     ) -> dict[str, Any]:
     if corpus is None or corpus.is_empty:
@@ -266,11 +302,12 @@ _DISPATCH: dict[str, Callable[..., dict[str, Any]]] = {
     "get_scholarship_details": _tool_details,
     "get_weather": _tool_weather,
     "calculate": _tool_calculate,
+    "web_search": _tool_web_search,
 }
 
 # Exceptions translated into a clean {"error": ...} the model can react to.
 _KNOWN_ERRORS = (minhtak.MinhtakError, WeatherError, CalculatorError,
-                 AssistantError, KeyError, ValueError, TypeError)
+                 WebSearchError, AssistantError, KeyError, ValueError, TypeError)
 
 
 def run_tool(name: str, args: dict[str, Any],

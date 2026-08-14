@@ -41,6 +41,8 @@ def _summarize(result: dict[str, Any]) -> str:
         return f"خطأ: {result['error']}"[:200]
     if "match_count" in result:
         return f"{result['match_count']} من {result.get('total_in_catalogue', '?')} في الكتالوج"
+    if "results" in result and "query" in result:
+        return f"{result.get('result_count', 0)} نتيجة ويب"
     if "result_count" in result:
         return f"{result['result_count']} منحة مطابقة"
     if "passages" in result:

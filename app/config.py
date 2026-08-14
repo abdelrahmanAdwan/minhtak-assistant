@@ -38,6 +38,11 @@ MINHTAK_API_BASE: str = os.environ.get(
 GEOCODE_BASE: str = "https://geocoding-api.open-meteo.com/v1/search"
 FORECAST_BASE: str = "https://api.open-meteo.com/v1/forecast"
 
+# DuckDuckGo, free and key-less (the web-search tool).
+DDG_INSTANT_BASE: str = "https://api.duckduckgo.com/"
+DDG_HTML_BASE: str = "https://html.duckduckgo.com/html/"
+WEB_SEARCH_MAX_RESULTS: int = int(os.environ.get("WEB_SEARCH_MAX_RESULTS", "5"))
+
 REQUEST_TIMEOUT: float = float(os.environ.get("REQUEST_TIMEOUT_SECONDS", "60"))
 
 # --------------------------------------------------------------------------- #
